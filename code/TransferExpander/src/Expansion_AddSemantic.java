@@ -42,11 +42,11 @@ public class Expansion_AddSemantic {
     public static int expansionIndex = 65;
 	
 	
-	public static ArrayList<String> all_rules = new ArrayList<>(); //±£´æ²ÉÑù½á¹û
+	public static ArrayList<String> all_rules = new ArrayList<>(); //ä¿å­˜é‡‡æ ·ç»“æœ
 	
-	public static ArrayList<String[]> total_results = new ArrayList<>(); //±£´æËùÓĞÊı¾İ½á¹û
+	public static ArrayList<String[]> total_results = new ArrayList<>(); //ä¿å­˜æ‰€æœ‰æ•°æ®ç»“æœ
 		
-	public static ArrayList<String> total_expaed = new ArrayList<>(); //ÒÑ¾­¼ì²â¹ıµÄ
+	public static ArrayList<String> total_expaed = new ArrayList<>(); //å·²ç»æ£€æµ‹è¿‡çš„
 	
 	public static ArrayList<String> used_trans_rule = new ArrayList<>();
 	
@@ -80,18 +80,18 @@ public class Expansion_AddSemantic {
 	}
 	
 	public static Map<String,String> read_rules(String file_path){
-		//keyÊÇ¹æÔò£¬vauleÊÇ·Ö
+		//keyæ˜¯è§„åˆ™ï¼Œvauleæ˜¯åˆ†
 		Map<String,String> rules = new HashMap();
 		File file = new File(file_path);  
         BufferedReader reader = null;  
         try {  
-            System.out.println("ÒÔĞĞÎªµ¥Î»¶ÁÈ¡ÎÄ¼şÄÚÈİ£¬Ò»´Î¶ÁÒ»ÕûĞĞ£º");  
+            System.out.println("ä»¥è¡Œä¸ºå•ä½è¯»å–æ–‡ä»¶å†…å®¹ï¼Œä¸€æ¬¡è¯»ä¸€æ•´è¡Œï¼š");  
             reader = new BufferedReader(new FileReader(file));  
             String tempString = null;  
             int line = 1;  
-            // Ò»´Î¶ÁÈëÒ»ĞĞ£¬Ö±µ½¶ÁÈënullÎªÎÄ¼ş½áÊø  
+            // ä¸€æ¬¡è¯»å…¥ä¸€è¡Œï¼Œç›´åˆ°è¯»å…¥nullä¸ºæ–‡ä»¶ç»“æŸ  
             while ((tempString = reader.readLine()) != null) {  
-                // ÏÔÊ¾ĞĞºÅ  
+                // æ˜¾ç¤ºè¡Œå·  
             	rules.put(tempString.split("!")[1],tempString.split(" ")[0]);
             	all_rules.add(tempString.split("!")[1]);
                 System.out.println(tempString);  
@@ -131,8 +131,8 @@ public class Expansion_AddSemantic {
 	
 	public static void result_to_datas(String result,String[] lines){
 		if(result.length()>0){
-			total_expaed.add(lines.toString()); //¼ÇÂ¼À©Õ¹Êı¾İ
-			//¼Óµ½½á¹ûÖĞ
+			total_expaed.add(lines.toString()); //è®°å½•æ‰©å±•æ•°æ®
+			//åŠ åˆ°ç»“æœä¸­
 			String[] temp = new String[lines.length+1];
 			for(int j=0;j<lines.length;j++){
 				temp[j]=lines[j];
@@ -144,7 +144,7 @@ public class Expansion_AddSemantic {
 		
 	
 	public static void kg_expa(String rule,String[] line){
-		//kg¹æÔòµÄÀ©Õ¹
+		  //kgè§„åˆ™çš„æ‰©å±•
 		
 		String[] temp = rule.split(",",-1);
 		//System.out.println("&&&&&&&"+ temp.length);
@@ -389,7 +389,7 @@ public class Expansion_AddSemantic {
     }
    
 	public static void kg_expa_total_datas(String rule,ArrayList<String[]> total_datas){
-		//ÓÃkg´¦ÀíËùÓĞÊı¾İ
+		//ç”¨kgå¤„ç†æ‰€æœ‰æ•°æ®
 		for(int i=0;i<total_datas.size();i++){
 			String[] lines = total_datas.get(i);
 			String result="";
@@ -401,26 +401,26 @@ public class Expansion_AddSemantic {
 		}//end for
 	}
 	
-	//Ôö¼ÓÓïÒå¹ØÏµÇ¨ÒÆ
+	//å¢åŠ è¯­ä¹‰å…³ç³»è¿ç§»
 	public static void semantic_expan(String[] line){
 		String current_abbr = line[abbrIndex];
 		String location = line[idIndex];
-		Map <String,String> result_num_semantic= new HashMap();//¼ÇÂ¼½á¹û£¬
+		Map <String,String> result_num_semantic= new HashMap();//è®°å½•ç»“æœï¼Œ
 		
 		for(int i =0;i<total_results.size();i++){
 			
-			String target_abbr = total_results.get(i)[abbrIndex];//ËõĞ´´Ê
+			String target_abbr = total_results.get(i)[abbrIndex];//ç¼©å†™è¯
 			String target_location = total_results.get(i)[idIndex];
-			String target_expan = total_results.get(i)[expansionIndex].split(",")[0];//À©Õ¹´Ê
+			String target_expan = total_results.get(i)[expansionIndex].split(",")[0];//æ‰©å±•è¯
 			
 			
-			if(current_abbr.equalsIgnoreCase(target_abbr) && Step2_ComputePriorityAddNewRules.InSameKG(current_abbr, target_abbr,location,target_location) ){ //Âú×ãÂ·¾¶¹æÔò
-				//¼ÇÂ¼²¢Í³¼Æ
+			if(current_abbr.equalsIgnoreCase(target_abbr) && Step2_ComputePriorityAddNewRules.InSameKG(current_abbr, target_abbr,location,target_location) ){ //æ»¡è¶³è·¯å¾„è§„åˆ™
+				//è®°å½•å¹¶ç»Ÿè®¡
 				if(!result_num_semantic.containsKey(target_expan))
 					result_num_semantic.put(target_expan, ""+0);
 				
 				result_num_semantic.put(target_expan, ""+String.valueOf(1+Integer.parseInt(result_num_semantic.get(target_expan))));
-			}// end for Â·¾¶
+			}// end for è·¯å¾„
 		}//end for eData
 		
 		if(result_num_semantic.size()<1)
@@ -443,7 +443,7 @@ public class Expansion_AddSemantic {
 	}
     
 	public static void semantic_expan_total_datas(ArrayList<String[]> total_datas){
-//		used_trans_rule.add("InSameKG");//Èç¹ûÊÇÇ¨ÒÆ¹æÔò£¬ÏÈ¼Ó½øÈ¥
+//		used_trans_rule.add("InSameKG");//å¦‚æœæ˜¯è¿ç§»è§„åˆ™ï¼Œå…ˆåŠ è¿›å»
 		for(int i=0;i<total_datas.size();i++){
 			String[] lines = total_datas.get(i);
 			String result="";
@@ -455,7 +455,7 @@ public class Expansion_AddSemantic {
 		}//end for
 	}
 	public static int getLoca(String pathFileA,String pathFileB){
-    	//¼ì²âÁ½¸ö×Ö·û´®µÄ¾àÀë
+    	//æ£€æµ‹ä¸¤ä¸ªå­—ç¬¦ä¸²çš„è·ç¦»
     	//C:/PHDONE/runtime-EclipseApplication/bootique-master/bootique/src/test/java/io/bootique/Bootique_ConfigurationIT.java;
     	//C:/PHDONE/runtime-EclipseApplication/filebot-master/source/net/filebot/ui/transfer/FileExportHandler.java;
     	pathFileA = pathFileA.split(";",-1)[0];
@@ -480,38 +480,38 @@ public class Expansion_AddSemantic {
     }
     
 	public static void trans_expa(String rule,String[] line){
-		//Ç¨ÒÆ¹æÔòµÄÀ©Õ¹
+		//è¿ç§»è§„åˆ™çš„æ‰©å±•
 		int abbrLength = Integer.parseInt(rule.split(",",-1)[0]);
 		int abbrLoca = Integer.parseInt(rule.split(",",-1)[1]);
 		
 
-		String currentAbbr =line[abbrIndex]; //µ±Ç°ËõĞ´´Ê
-		String currentPath = line[filesIndex]; //µ±Ç°ÎÄ¼şÂ·¾¶
+		String currentAbbr =line[abbrIndex]; //å½“å‰ç¼©å†™è¯
+		String currentPath = line[filesIndex]; //å½“å‰æ–‡ä»¶è·¯å¾„
 		int currentAbbrlength = currentAbbr.length();
 		
-		Map <String,String> result_num = new HashMap();//¼ÇÂ¼½á¹û£¬
+		Map <String,String> result_num = new HashMap();//è®°å½•ç»“æœï¼Œ
 		
 		if(currentAbbrlength > 2){
 			currentAbbrlength = 3;
 		}
-		if(currentAbbrlength==abbrLength){//Âú×ã³¤¶È¹æÔò
+		if(currentAbbrlength==abbrLength){//æ»¡è¶³é•¿åº¦è§„åˆ™
 			
 			for(int j =0;j<total_results.size();j++){
-				//±éÀúÓĞ½á¹ûµÄ²¿·Ö
+				//éå†æœ‰ç»“æœçš„éƒ¨åˆ†
 				
-				String targetAbbr = total_results.get(j)[abbrIndex];//ËõĞ´´Ê
-				String targetExpa = total_results.get(j)[expansionIndex].split(",")[0];//À©Õ¹´Ê
-				String targetPath = total_results.get(j)[filesIndex];//Â·¾¶
+				String targetAbbr = total_results.get(j)[abbrIndex];//ç¼©å†™è¯
+				String targetExpa = total_results.get(j)[expansionIndex].split(",")[0];//æ‰©å±•è¯
+				String targetPath = total_results.get(j)[filesIndex];//è·¯å¾„
 				
-				if(currentAbbr.equalsIgnoreCase(targetAbbr) && getLoca(currentPath,targetPath)==abbrLoca ){ //Âú×ãÂ·¾¶¹æÔò
-					//¼ÇÂ¼²¢Í³¼Æ
+				if(currentAbbr.equalsIgnoreCase(targetAbbr) && getLoca(currentPath,targetPath)==abbrLoca ){ //æ»¡è¶³è·¯å¾„è§„åˆ™
+					//è®°å½•å¹¶ç»Ÿè®¡
 					if(!result_num.containsKey(targetExpa))
 						result_num.put(targetExpa, ""+0);
 					
 					result_num.put(targetExpa, ""+String.valueOf(1+Integer.parseInt(result_num.get(targetExpa))));
-				}// end for Â·¾¶
+				}// end for è·¯å¾„
 			}//end for eData
-		}//end for ³¤¶È
+		}//end for é•¿åº¦
     	
 		if(result_num.size()<1)
 			return ;
@@ -532,7 +532,7 @@ public class Expansion_AddSemantic {
 	
 	
 	public static void trans_expa_total_datas(String rule,ArrayList<String[]> total_datas){
-//		used_trans_rule.add(rule);//Èç¹ûÊÇÇ¨ÒÆ¹æÔò£¬ÏÈ¼Ó½øÈ¥
+//		used_trans_rule.add(rule);//å¦‚æœæ˜¯è¿ç§»è§„åˆ™ï¼Œå…ˆåŠ è¿›å»
 		for(int i=0;i<total_datas.size();i++){
 			String[] lines = total_datas.get(i);
 			String result="";
@@ -562,51 +562,51 @@ public class Expansion_AddSemantic {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		//¶ÁÈ¡¹æÔòÎÄ¼şÄÚÈİ
+		//è¯»å–è§„åˆ™æ–‡ä»¶å†…å®¹
 		Map<String,String> rules = read_rules("C:/PHDONExia/ICSE2019/code/SemanticExpand/src/rule6.txt");
 		
-		//¶ÁÈ¡Êı¾İÎÄ¼şÄÚÈİ
+		//è¯»å–æ•°æ®æ–‡ä»¶å†…å®¹
 		ArrayList<String[]> total_datas = read_csv("C:/PHDONExia/ICSE2019/ExpData/originalData/data6_abbrAndHResult.csv");
 		
-	   //±éÀú¹æÔò£¬¶Ô×ÜÊı¾İ½øĞĞÀ©Õ¹
+	   //éå†è§„åˆ™ï¼Œå¯¹æ€»æ•°æ®è¿›è¡Œæ‰©å±•
 	
 		for(int rules_num=0;rules_num< all_rules.size();rules_num++){
-			//±éÀúÃ¿Ò»Ìõ¹æÔò
+			//éå†æ¯ä¸€æ¡è§„åˆ™
 			
 			String rule = all_rules.get(rules_num);
 			System.out.println("------------"+rule);
 			
 			if(!Util.isNum(rule.split(",")[0].charAt(0))&& (!rule.split(",")[0].equals("InSameKG"))){
-				//ÅĞ¶ÏÊÇ²»ÊÇkg.ÊÇµÄ»°£¬ÔõÃ´´¦Àí
+				//åˆ¤æ–­æ˜¯ä¸æ˜¯kg.æ˜¯çš„è¯ï¼Œæ€ä¹ˆå¤„ç†
 				
-				//ÏÈÓÃkg´¦Àí
+				//å…ˆç”¨kgå¤„ç†
 				kg_expa_total_datas(rule,total_datas);
 			
 				trans_expa_again(total_datas);
-				//Ñ­»·again
+				//å¾ªç¯again
 			}else{
-				//²»ÊÇkg¹æÔò£¬ÔõÃ´´¦Àí
+				//ä¸æ˜¯kgè§„åˆ™ï¼Œæ€ä¹ˆå¤„ç†
 				used_trans_rule.add(rule);
 				
 				if(rule.equals("InSameKG")){
-					//Èç¹ûÊÇÓïÒå¹æÔò
+					//å¦‚æœæ˜¯è¯­ä¹‰è§„åˆ™
 					semantic_expan_total_datas(total_datas);
 
 				}else{
-					//Èç¹ûÊÇÇ¨ÒÆ£¬ÔõÃ´´¦Àí
+					//å¦‚æœæ˜¯è¿ç§»ï¼Œæ€ä¹ˆå¤„ç†
 					trans_expa_total_datas(rule,total_datas);
 					}
 				
 				
 				
-				//Èç¹û²»ÊÇÇ¨ÒÆ£¬ÔõÃ´´¦Àí
+				//å¦‚æœä¸æ˜¯è¿ç§»ï¼Œæ€ä¹ˆå¤„ç†
 				
 				
 			}
 		}
 		
 		
-		//Ã»ÓĞµÄ²¹ÉÏ
+		//æ²¡æœ‰çš„è¡¥ä¸Š
 		for(int i = 0;i<total_datas.size();i++){
 			if(!total_expaed.contains(total_datas.get(i).toString())){
 				 String[] temp = new String[total_datas.get(i).length+1];
@@ -618,8 +618,8 @@ public class Expansion_AddSemantic {
 			}
 		}
 		
-		//ĞŞ¸ÄË³Ğò
-		ArrayList<String[]> sorted_results = new ArrayList<>(); //±£´æ²ÉÑù½á¹û
+		//ä¿®æ”¹é¡ºåº
+		ArrayList<String[]> sorted_results = new ArrayList<>(); //ä¿å­˜é‡‡æ ·ç»“æœ
 		
 		for(int i = 0;i < total_datas.size();i++){
 			for(int j = 0;j<total_results.size();j++){
@@ -632,7 +632,7 @@ public class Expansion_AddSemantic {
 			
 		}
 		
-		//±£´æ½á¹û
+		//ä¿å­˜ç»“æœ
 		write_result(sorted_results,"C:/PHDONExia/ICSE2019/ExpData/NewResult/data6_rule6.csv");
 		
 		
