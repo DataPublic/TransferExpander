@@ -13,7 +13,7 @@ import java.util.HashSet;
 public class Query {
 	
 	public static String[] keywords= {"JSON","YAML","CLI","AST","REGEXP","URI","EOL","PKG","PDF","CTOR","CSV","SQL","CSS","UI","REGEX","IP","EOF","API","JAXB"};
-	public static String[] targets= {"abbreviation","shorted to","acronym for","know as"," or <b>"};
+	public static String[] targets= {"abbreviation","shortened to","acronym for","know as"," or <b>"};
 	public static ArrayList<String> results=new ArrayList<String>();
 	public static ArrayList<String> fr=new ArrayList<String>();
 	public static HashSet<String> ts=new HashSet<String>();
